@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MoviesApplication</string>
+    <string name="favorites">favorites</string>
+    <string name="music">music</string>
+    <string name="places">places</string>
+    <string name="news">news</string>
+    <string name="profile">profile</string>
 </resources>
