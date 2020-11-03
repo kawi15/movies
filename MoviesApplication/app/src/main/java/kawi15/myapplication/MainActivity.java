@@ -35,6 +35,15 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.page_2:
                                 selectedFragment = FragmentTwo.newInstance();
                                 break;
+                            case R.id.page_3:
+                                selectedFragment = FragmentThree.newInstance();
+                                break;
+                            case R.id.page_4:
+                                selectedFragment = FragmentFour.newInstance();
+                                break;
+                            case R.id.page_5:
+                                selectedFragment = FragmentFive.newInstance();
+                                break;
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.frame_layout, selectedFragment);
