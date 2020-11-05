@@ -1,16 +1,22 @@
 package kawi15.myapplication;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +24,8 @@ import java.util.List;
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class FragmentOne extends Fragment {
 
@@ -46,14 +54,11 @@ public class FragmentOne extends Fragment {
             data = movieDb;
             adapter = new CustomAdapter(data);
             recyclerView.setAdapter(adapter);
-            //adapter.notifyDataSetChanged();
-            //fun();
         }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
 
@@ -61,6 +66,9 @@ public class FragmentOne extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View returnView = inflater.inflate(R.layout.fragment_one, container, false);
+
+        myOnClickListener = new MyOnClickListener(getContext());
+
         recyclerView = (RecyclerView) returnView.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
 
@@ -71,16 +79,21 @@ public class FragmentOne extends Fragment {
         MovieTask mt = new MovieTask();
         mt.execute();
 
-        //adapter = new CustomAdapter(data);
-        //recyclerView.setAdapter(adapter);
-
-
-
         return returnView;
     }
 
-    public void fun(){
-        adapter = new CustomAdapter(data);
-        recyclerView.setAdapter(adapter);
+    private class MyOnClickListener implements View.OnClickListener {
+
+        private final Context context;
+
+        private MyOnClickListener(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(getActivity(), "test", LENGTH_SHORT).show();
+        }
+
     }
 }

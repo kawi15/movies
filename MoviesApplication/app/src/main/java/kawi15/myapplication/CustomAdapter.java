@@ -42,7 +42,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.cards_layout, parent, false);
 
-        //view.setOnClickListener(MainActivity.myOnClickListener);
+        view.setOnClickListener(FragmentOne.myOnClickListener);
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
@@ -54,11 +54,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         TextView textViewName = holder.textViewName;
         TextView textViewVersion = holder.textViewVersion;
         ImageView imageView = holder.imageViewIcon;
-        Glide.with(imageView).load("http://image.tmdb.org/t/p/w500" + dataSet.get(listPosition).getPosterPath()).into(imageView);
+        Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + dataSet.get(listPosition).getPosterPath()).into(imageView);
 
         textViewName.setText(dataSet.get(listPosition).getOriginalTitle());
         textViewVersion.setText(dataSet.get(listPosition).getReleaseDate());
-        //imageView.setImageResource(dataSet.get(listPosition).);
     }
 
     @Override
