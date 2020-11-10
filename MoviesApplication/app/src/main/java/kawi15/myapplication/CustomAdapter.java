@@ -29,6 +29,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             this.textViewName = (TextView) itemView.findViewById(R.id.text1);
             this.textViewVersion = (TextView) itemView.findViewById(R.id.text2);
             this.imageViewIcon = (ImageView) itemView.findViewById(R.id.imageView);
+            itemView.setOnClickListener(FragmentOne.myOnClickListener);
         }
     }
 
@@ -42,7 +43,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.cards_layout, parent, false);
 
-        view.setOnClickListener(FragmentOne.myOnClickListener);
+        //view.setOnClickListener(FragmentOne.myOnClickListener);
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
@@ -59,6 +60,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         textViewName.setText(dataSet.get(listPosition).getOriginalTitle());
         textViewVersion.setText(dataSet.get(listPosition).getReleaseDate());
     }
+
+
 
     @Override
     public int getItemCount() {

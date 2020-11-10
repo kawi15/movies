@@ -92,7 +92,9 @@ public class FragmentOne extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(), "test", LENGTH_SHORT).show();
+            TextView text;
+            text = (TextView) v.findViewById(R.id.text1);
+            Toast.makeText(getActivity(), text.getText(), LENGTH_SHORT).show();
         }
 
     }
