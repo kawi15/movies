@@ -1,14 +1,11 @@
 package kawi15.myapplication;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -16,9 +13,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import info.movito.themoviedbapi.TmdbApi;
@@ -27,18 +21,23 @@ import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class FragmentOne extends Fragment {
+public class FragmentOne extends Fragment /*implements CustomAdapter.ListItemClickListener*/{
 
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
     private List<MovieDb> data;
-    static View.OnClickListener myOnClickListener;
+    //private CustomAdapter.ListItemClickListener mOnClickListener;
 
     public static FragmentOne newInstance() {
         FragmentOne fragment = new FragmentOne();
         return fragment;
     }
+
+    /*@Override
+    public void onListItemClick(int position) {
+        Toast.makeText(getContext(), data.get(position).getOriginalTitle(), LENGTH_SHORT).show();
+    }*/
 
     public class MovieTask extends AsyncTask<Void, Void, List<MovieDb>> {
         @Override
@@ -53,6 +52,9 @@ public class FragmentOne extends Fragment {
         protected void onPostExecute(List<MovieDb> movieDb) {
             data = movieDb;
             adapter = new CustomAdapter(data);
+            ((CustomAdapter) adapter).setOnMovieDbClicked(movieDb2 -> {
+                Toast.makeText(getActivity(), movieDb2.getReleaseDate(), LENGTH_SHORT).show();
+            });
             recyclerView.setAdapter(adapter);
         }
     }
@@ -67,8 +69,6 @@ public class FragmentOne extends Fragment {
                              Bundle savedInstanceState) {
         View returnView = inflater.inflate(R.layout.fragment_one, container, false);
 
-        myOnClickListener = new MyOnClickListener(getContext());
-
         recyclerView = (RecyclerView) returnView.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
 
@@ -76,26 +76,12 @@ public class FragmentOne extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+
         MovieTask mt = new MovieTask();
         mt.execute();
 
         return returnView;
     }
 
-    private class MyOnClickListener implements View.OnClickListener {
 
-        private final Context context;
-
-        private MyOnClickListener(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        public void onClick(View v) {
-            TextView text;
-            text = (TextView) v.findViewById(R.id.text1);
-            Toast.makeText(getActivity(), text.getText(), LENGTH_SHORT).show();
-        }
-
-    }
 }
