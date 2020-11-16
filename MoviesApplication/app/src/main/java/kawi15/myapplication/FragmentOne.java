@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ import java.util.List;
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
+import kawi15.myapplication.database.DatabaseViewModel;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -26,6 +28,7 @@ public class FragmentOne extends Fragment /*implements CustomAdapter.ListItemCli
 
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private DatabaseViewModel databaseViewModel;
     private static RecyclerView recyclerView;
     private List<MovieDb> data;
     //private CustomAdapter.ListItemClickListener mOnClickListener;
@@ -55,6 +58,7 @@ public class FragmentOne extends Fragment /*implements CustomAdapter.ListItemCli
             adapter = new CustomAdapter(data);
             ((CustomAdapter) adapter).setOnMovieDbClicked(movieDb2 -> {
                 Toast.makeText(getActivity(), movieDb2.getReleaseDate(), LENGTH_SHORT).show();
+                databaseViewModel.addWatchlistMovie(movieDb2);
             });
             recyclerView.setAdapter(adapter);
         }
@@ -62,6 +66,7 @@ public class FragmentOne extends Fragment /*implements CustomAdapter.ListItemCli
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
         super.onCreate(savedInstanceState);
     }
 
@@ -69,6 +74,7 @@ public class FragmentOne extends Fragment /*implements CustomAdapter.ListItemCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View returnView = inflater.inflate(R.layout.fragment_one, container, false);
+
 
         recyclerView = (RecyclerView) returnView.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);

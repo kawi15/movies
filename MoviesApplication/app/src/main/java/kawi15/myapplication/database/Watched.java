@@ -5,7 +5,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Watchlist {
+public class Watched {
+
     @PrimaryKey
     @ColumnInfo(name = "id")
     private int movieId;
