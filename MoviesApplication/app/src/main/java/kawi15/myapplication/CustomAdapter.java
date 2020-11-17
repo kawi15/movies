@@ -23,14 +23,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public void setOnMovieDbClicked(OnMovieDbClicked onMovieDbClicked) {
         this.onMovieDbClicked = onMovieDbClicked;
     }
-    //final private ListItemClickListener mOnClickListener;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener*/{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView textViewName;
         TextView textViewVersion;
         ImageView imageViewIcon;
-        //private ListItemClickListener mOnClickListener;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -46,29 +44,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                     onMovieDbClicked.movieDbClicked(movieDb);
                 }
             });
-            //itemView.setOnClickListener(this);
-            //itemView.setOnClickListener(CustomAdapter.myOnClickListener);
         }
-
-        /*@Override
-        public void onClick(View v) {
-            int position = getAdapterPosition();
-            mOnClickListener.onListItemClick(position);
-        }*/
     }
 
-    public CustomAdapter(List<MovieDb> data /*ListItemClickListener mOnClickListener*/) {
+    public CustomAdapter(List<MovieDb> data) {
         this.dataSet = data;
-        //this.mOnClickListener = mOnClickListener;
     }
 
     public interface OnMovieDbClicked {
         void movieDbClicked(MovieDb movieDb);
     }
-
-    /*public interface ListItemClickListener{
-        void onListItemClick(int position);
-    }*/
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent,
@@ -76,7 +61,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.cards_layout, parent, false);
 
-        //view.setOnClickListener(FragmentOne.myOnClickListener);
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;

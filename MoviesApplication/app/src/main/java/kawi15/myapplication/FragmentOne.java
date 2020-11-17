@@ -24,24 +24,19 @@ import kawi15.myapplication.database.DatabaseViewModel;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class FragmentOne extends Fragment /*implements CustomAdapter.ListItemClickListener*/{
+public class FragmentOne extends Fragment{
 
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private DatabaseViewModel databaseViewModel;
     private static RecyclerView recyclerView;
     private List<MovieDb> data;
-    //private CustomAdapter.ListItemClickListener mOnClickListener;
 
     public static FragmentOne newInstance() {
         FragmentOne fragment = new FragmentOne();
         return fragment;
     }
 
-    /*@Override
-    public void onListItemClick(int position) {
-        Toast.makeText(getContext(), data.get(position).getOriginalTitle(), LENGTH_SHORT).show();
-    }*/
 
     public class MovieTask extends AsyncTask<Void, Void, List<MovieDb>> {
         @Override
@@ -79,7 +74,7 @@ public class FragmentOne extends Fragment /*implements CustomAdapter.ListItemCli
         recyclerView = (RecyclerView) returnView.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(getContext());  // ???
+        layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 

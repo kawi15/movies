@@ -1,24 +1,57 @@
 package kawi15.myapplication;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
+import kawi15.myapplication.database.DatabaseViewModel;
+import kawi15.myapplication.database.Watchlist;
 
 public class FragmentTwo extends Fragment {
+
+    private static RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private DatabaseViewModel databaseViewModel;
+    private static RecyclerView recyclerView;
+    private List<Watchlist> data;
+
     public static FragmentTwo newInstance() {
         FragmentTwo fragment = new FragmentTwo();
         return fragment;
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
         super.onCreate(savedInstanceState);
     }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_two, container, false);
+        View returnView = inflater.inflate(R.layout.fragment_two, container, false);
+
+        recyclerView = (RecyclerView) returnView.findViewById(R.id.fragment_two);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        data = databaseViewModel.getWatchlistList();
+        adapter = new WatchlistAdapter(data);
+        recyclerView.setAdapter(adapter);
+
+        return returnView;
     }
 }

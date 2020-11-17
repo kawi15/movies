@@ -18,11 +18,11 @@ public class DatabaseViewModel extends AndroidViewModel {
         db = AppDatabase.getDatabase(application);
     }
 
-    List<Watchlist> getWatchlistList() {
+    public List<Watchlist> getWatchlistList() {
         return db.watchlistDao().getAll();
     }
 
-    List<Watched> getWatchedList(){
+    public List<Watched> getWatchedList(){
         return db.watchedDao().getAll();
     }
 
