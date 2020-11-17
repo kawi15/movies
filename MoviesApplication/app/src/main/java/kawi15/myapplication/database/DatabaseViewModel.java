@@ -37,7 +37,7 @@ public class DatabaseViewModel extends AndroidViewModel {
         db.watchlistDao().addMovie(addedMovie);
     }
 
-    void addWatchedMovie(MovieDb movieDb){
+    public void addWatchedMovie(MovieDb movieDb){
         Watched addedMovie = new Watched();
         addedMovie.setMovieId(movieDb.getId());
         addedMovie.setMovieTitle(movieDb.getOriginalTitle());
@@ -46,5 +46,13 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setReleaseDate(movieDb.getReleaseDate());
 
         db.watchedDao().addMovie(addedMovie);
+    }
+
+    public void deleteWatchlistMovie(Watchlist watchlist){
+        db.watchlistDao().deleteMovie(watchlist);
+    }
+
+    public void deleteWatchedMovie(Watched watched){
+        db.watchedDao().deleteMovie(watched);
     }
 }

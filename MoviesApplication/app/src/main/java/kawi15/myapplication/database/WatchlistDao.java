@@ -1,6 +1,7 @@
 package kawi15.myapplication.database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -13,4 +14,7 @@ public interface WatchlistDao {
 
     @Insert
     void addMovie(Watchlist watchlistMovie);
+
+    @Delete
+    void deleteMovie(Watchlist watchlistMovie);
 }

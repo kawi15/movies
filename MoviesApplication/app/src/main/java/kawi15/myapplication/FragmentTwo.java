@@ -5,6 +5,7 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,6 +17,8 @@ import java.util.List;
 
 import kawi15.myapplication.database.DatabaseViewModel;
 import kawi15.myapplication.database.Watchlist;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class FragmentTwo extends Fragment {
 
@@ -50,6 +53,10 @@ public class FragmentTwo extends Fragment {
 
         data = databaseViewModel.getWatchlistList();
         adapter = new WatchlistAdapter(data);
+        ((WatchlistAdapter) adapter).setOnWatchlistMovieClicked(movie -> {
+            databaseViewModel.deleteWatchlistMovie(movie);
+            Toast.makeText(getActivity(), "usunieto", LENGTH_SHORT).show();
+        });
         recyclerView.setAdapter(adapter);
 
         return returnView;
