@@ -1,5 +1,6 @@
 package kawi15.myapplication;
 
+import android.content.Intent;
 import android.graphics.Movie;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,8 +53,10 @@ public class FragmentOne extends Fragment{
             data = movieDb;
             adapter = new CustomAdapter(data);
             ((CustomAdapter) adapter).setOnMovieDbClicked(movieDb2 -> {
-                Toast.makeText(getActivity(), movieDb2.getReleaseDate(), LENGTH_SHORT).show();
-                databaseViewModel.addWatchlistMovie(movieDb2);
+                Intent intent = new Intent(getActivity(), MovieDetails.class);
+                startActivity(intent);
+                //Toast.makeText(getActivity(), movieDb2.getReleaseDate(), LENGTH_SHORT).show();
+                //databaseViewModel.addWatchlistMovie(movieDb2);
             });
             recyclerView.setAdapter(adapter);
         }
