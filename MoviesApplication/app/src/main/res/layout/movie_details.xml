@@ -66,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
+                android:text="tescik"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
@@ -73,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:text="kozaczek"
                 android:layout_marginTop="10dp"
 
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -92,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
+                android:text="test"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
@@ -99,6 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:text="kozak"
                 android:layout_marginTop="10dp"
 
                 android:textAppearance="?android:attr/textAppearanceMedium" />

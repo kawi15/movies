@@ -1,4 +1,15 @@
 package kawi15.myapplication;
 
-public class MovieDetails {
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MovieDetails extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.movie_details);
+    }
 }

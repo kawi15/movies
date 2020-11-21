@@ -1,5 +1,6 @@
 package kawi15.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -54,8 +55,10 @@ public class FragmentTwo extends Fragment {
         data = databaseViewModel.getWatchlistList();
         adapter = new WatchlistAdapter(data);
         ((WatchlistAdapter) adapter).setOnWatchlistMovieClicked(movie -> {
-            databaseViewModel.deleteWatchlistMovie(movie);
-            Toast.makeText(getActivity(), "usunieto", LENGTH_SHORT).show();
+            //databaseViewModel.deleteWatchlistMovie(movie);
+            //Toast.makeText(getActivity(), "usunieto", LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), MovieDetails.class);
+            startActivity(intent);
         });
         recyclerView.setAdapter(adapter);
 
