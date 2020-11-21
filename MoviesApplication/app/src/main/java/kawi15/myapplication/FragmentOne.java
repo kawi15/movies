@@ -54,6 +54,8 @@ public class FragmentOne extends Fragment{
             adapter = new CustomAdapter(data);
             ((CustomAdapter) adapter).setOnMovieDbClicked(movieDb2 -> {
                 Intent intent = new Intent(getActivity(), MovieDetails.class);
+                intent.putExtra("class", "movieDB");
+                intent.putExtra("object", movieDb2);
                 startActivity(intent);
                 //Toast.makeText(getActivity(), movieDb2.getReleaseDate(), LENGTH_SHORT).show();
                 //databaseViewModel.addWatchlistMovie(movieDb2);

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import kawi15.myapplication.database.DatabaseViewModel;
@@ -58,6 +59,8 @@ public class FragmentTwo extends Fragment {
             //databaseViewModel.deleteWatchlistMovie(movie);
             //Toast.makeText(getActivity(), "usunieto", LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), MovieDetails.class);
+            intent.putExtra("class", "watchlist");
+            intent.putExtra("object", movie);
             startActivity(intent);
         });
         recyclerView.setAdapter(adapter);
