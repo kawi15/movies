@@ -29,8 +29,8 @@ public class MovieDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_details);
         textView = findViewById(R.id.t1);
-        title = findViewById(R.id.first_text1);
-        releaseDate = findViewById(R.id.first_text2);
+        title = findViewById(R.id.title);
+        //releaseDate = findViewById(R.id.first_text2);
         overview = findViewById(R.id.overview);
         overview.setMovementMethod(new ScrollingMovementMethod());
         imageView = findViewById(R.id.image);
@@ -42,7 +42,7 @@ public class MovieDetails extends AppCompatActivity {
             MovieDb movieDb = (MovieDb) bundle.getSerializable("object");
             Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + movieDb.getPosterPath()).into(imageView);
             title.setText(movieDb.getTitle());
-            releaseDate.setText(movieDb.getReleaseDate());
+            //releaseDate.setText(movieDb.getReleaseDate());
             overview.setText(movieDb.getOverview());
             addToWatchlist.setText("add to watchlist");
             addToWatched.setText("add to watched");
