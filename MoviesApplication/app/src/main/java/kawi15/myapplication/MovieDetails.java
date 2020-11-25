@@ -2,20 +2,29 @@ package kawi15.myapplication;
 
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
 import info.movito.themoviedbapi.model.MovieDb;
+import kawi15.myapplication.database.DatabaseViewModel;
+import kawi15.myapplication.database.Watched;
 import kawi15.myapplication.database.Watchlist;
 
 public class MovieDetails extends AppCompatActivity {
 
+    private DatabaseViewModel databaseViewModel;
+    private Watchlist watchlist;
+    private Watched watched;
+    private MovieDb movieDb;
+    private String bool;
     TextView textView;
     TextView title;
     TextView releaseDate;
@@ -28,6 +37,7 @@ public class MovieDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_details);
+        databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
         textView = findViewById(R.id.t1);
         title = findViewById(R.id.title);
         //releaseDate = findViewById(R.id.first_text2);
@@ -39,7 +49,8 @@ public class MovieDetails extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if(bundle.getString("class").equals("movieDB")){
-            MovieDb movieDb = (MovieDb) bundle.getSerializable("object");
+            bool = "movieDB";
+            movieDb = (MovieDb) bundle.getSerializable("object");
             Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + movieDb.getPosterPath()).into(imageView);
             title.setText(movieDb.getTitle());
             //releaseDate.setText(movieDb.getReleaseDate());
@@ -48,8 +59,47 @@ public class MovieDetails extends AppCompatActivity {
             addToWatched.setText("add to watched");
         }
         else if(bundle.getString("class").equals("watchlist")){
-            Watchlist watchlist = (Watchlist) bundle.getSerializable("object");
-            textView.setText(watchlist.getMovieTitle());
+            bool = "watchlist";
+            watchlist = (Watchlist) bundle.getSerializable("object");
+            Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + watchlist.getPosterPath()).into(imageView);
+            title.setText(watchlist.getMovieTitle());
+            overview.setText(watchlist.getOverview());
+            addToWatchlist.setText("remove from watchlist");
+            addToWatched.setText("add to watched");
+
+        }
+        else if(bundle.getString("class").equals("watched")){
+            bool = "watched";
+            watched = (Watched) bundle.getSerializable("object");
+            Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + watched.getPosterPath()).into(imageView);
+            title.setText(watched.getMovieTitle());
+            overview.setText(watched.getOverview());
+            addToWatched.setText("remove from watched");
+        }
+    }
+
+    public void addToWatchlist(View view) {
+        if(addToWatchlist.getText().equals("add to watchlist")){
+            if(bool.equals("movieDB")){
+                databaseViewModel.addWatchlistMovie(movieDb);
+            }
+        }
+        else if(addToWatchlist.getText().equals("remove from watchlist")){
+            if (bool.equals("watchlist")){
+                databaseViewModel.deleteWatchlistMovie(watchlist);
+            }
+
+        }
+    }
+
+    public void addToWatched(View view) {
+        if (addToWatched.getText().equals("add to watched")){
+            if(bool.equals("movieDB")){
+                databaseViewModel.addWatchedMovie(movieDb);
+            }
+        }
+        else if(addToWatched.getText().equals("remove from watched")){
+            databaseViewModel.deleteWatchedMovie(watched);
         }
     }
 }
