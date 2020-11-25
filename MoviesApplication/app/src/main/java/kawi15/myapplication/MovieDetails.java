@@ -74,7 +74,9 @@ public class MovieDetails extends AppCompatActivity {
             Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + watched.getPosterPath()).into(imageView);
             title.setText(watched.getMovieTitle());
             overview.setText(watched.getOverview());
-            addToWatched.setText("remove from watched");
+            addToWatched.setText("already in watched");
+            addToWatched.setClickable(false);
+            addToWatchlist.setText("remove from watched");
         }
     }
 
@@ -90,6 +92,11 @@ public class MovieDetails extends AppCompatActivity {
             }
 
         }
+        else if(addToWatchlist.getText().equals("remove from watched")){
+            databaseViewModel.deleteWatchedMovie(watched);
+            addToWatchlist.setText("removed from watched");
+            addToWatchlist.setClickable(false);
+        }
     }
 
     public void addToWatched(View view) {
@@ -97,9 +104,19 @@ public class MovieDetails extends AppCompatActivity {
             if(bool.equals("movieDB")){
                 databaseViewModel.addWatchedMovie(movieDb);
             }
+            if (bool.equals("watchlist")){
+                databaseViewModel.addWatchedMovie(watchlist);
+                databaseViewModel.deleteWatchlistMovie(watchlist);
+                addToWatchlist.setText("removed from watchlist");
+                addToWatchlist.setClickable(false);
+                addToWatched.setText("added to watched");
+                addToWatched.setClickable(false);
+            }
         }
         else if(addToWatched.getText().equals("remove from watched")){
             databaseViewModel.deleteWatchedMovie(watched);
+            addToWatched.setText("removed");
+            addToWatched.setClickable(false);
         }
     }
 }
