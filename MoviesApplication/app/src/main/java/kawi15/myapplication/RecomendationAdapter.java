@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import kawi15.myapplication.database.Recomendation;
-import kawi15.myapplication.database.Watched;
 
 public class RecomendationAdapter extends RecyclerView.Adapter<RecomendationAdapter.RecomendationViewHolder>{
 

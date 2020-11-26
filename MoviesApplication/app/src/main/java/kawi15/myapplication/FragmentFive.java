@@ -51,7 +51,7 @@ public class FragmentFive extends Fragment {
         adapter = new RecomendationAdapter(data);
         ((RecomendationAdapter) adapter).setOnRecomendationMovieClicked(movie -> {
             Intent intent = new Intent(getActivity(), MovieDetails.class);
-            intent.putExtra("class", "watched");
+            intent.putExtra("class", "recomendation");
             intent.putExtra("object", movie);
             startActivity(intent);
         });
