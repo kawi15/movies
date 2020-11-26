@@ -24,6 +24,9 @@ public class Watchlist implements Serializable {
     @ColumnInfo(name = "release_date")
     private String releaseDate;
 
+    @ColumnInfo(name = "rating")
+    private float rating;
+
     public int getMovieId() {
         return movieId;
     }
@@ -62,5 +65,13 @@ public class Watchlist implements Serializable {
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }

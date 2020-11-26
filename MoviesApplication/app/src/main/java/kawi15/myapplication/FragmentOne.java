@@ -57,8 +57,6 @@ public class FragmentOne extends Fragment{
                 intent.putExtra("class", "movieDB");
                 intent.putExtra("object", movieDb2);
                 startActivity(intent);
-                //Toast.makeText(getActivity(), movieDb2.getReleaseDate(), LENGTH_SHORT).show();
-                //databaseViewModel.addWatchlistMovie(movieDb2);
             });
             recyclerView.setAdapter(adapter);
         }

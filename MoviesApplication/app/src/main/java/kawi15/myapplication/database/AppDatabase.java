@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Watched.class, Watchlist.class}, version = 2)
+@Database(entities = {Watched.class, Watchlist.class, Recomendation.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase dbInstance;
@@ -21,4 +21,5 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract WatchlistDao watchlistDao();
     public abstract WatchedDao watchedDao();
+    public abstract RecomendationDao recomendationDao();
 }

@@ -26,6 +26,11 @@ public class DatabaseViewModel extends AndroidViewModel {
         return db.watchedDao().getAll();
     }
 
+    public List<Recomendation> getRecomendationList() {
+        return db.recomendationDao().getAll();
+    }
+
+
     public void addWatchlistMovie(MovieDb movieDb){
         Watchlist addedMovie = new Watchlist();
         addedMovie.setMovieId(movieDb.getId());
@@ -33,6 +38,7 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setOverview(movieDb.getOverview());
         addedMovie.setPosterPath(movieDb.getPosterPath());
         addedMovie.setReleaseDate(movieDb.getReleaseDate());
+        addedMovie.setRating(movieDb.getUserRating());
 
         db.watchlistDao().addMovie(addedMovie);
     }
@@ -44,6 +50,7 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setOverview(movieDb.getOverview());
         addedMovie.setPosterPath(movieDb.getPosterPath());
         addedMovie.setReleaseDate(movieDb.getReleaseDate());
+        addedMovie.setRating(movieDb.getUserRating());
 
         db.watchedDao().addMovie(addedMovie);
     }
@@ -55,8 +62,21 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setOverview(watchlist.getOverview());
         addedMovie.setPosterPath(watchlist.getPosterPath());
         addedMovie.setReleaseDate(watchlist.getReleaseDate());
+        addedMovie.setRating(watchlist.getRating());
 
         db.watchedDao().addMovie(addedMovie);
+    }
+
+    public void addRecomendationMovie(MovieDb movieDb){
+        Recomendation addedMovie = new Recomendation();
+        addedMovie.setMovieId(movieDb.getId());
+        addedMovie.setMovieTitle(movieDb.getOriginalTitle());
+        addedMovie.setOverview(movieDb.getOverview());
+        addedMovie.setPosterPath(movieDb.getPosterPath());
+        addedMovie.setReleaseDate(movieDb.getReleaseDate());
+        addedMovie.setRating(movieDb.getUserRating());
+
+        db.recomendationDao().addMovie(addedMovie);
     }
 
     public void deleteWatchlistMovie(Watchlist watchlist){
@@ -65,5 +85,9 @@ public class DatabaseViewModel extends AndroidViewModel {
 
     public void deleteWatchedMovie(Watched watched){
         db.watchedDao().deleteMovie(watched);
+    }
+
+    public void deleteRecomendationMovie(Recomendation recomendation){
+        db.recomendationDao().deleteMovie(recomendation);
     }
 }
