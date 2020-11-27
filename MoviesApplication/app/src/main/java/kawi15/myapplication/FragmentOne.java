@@ -29,7 +29,6 @@ public class FragmentOne extends Fragment{
 
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private DatabaseViewModel databaseViewModel;
     private static RecyclerView recyclerView;
     private List<MovieDb> data;
 
@@ -64,7 +63,6 @@ public class FragmentOne extends Fragment{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
         super.onCreate(savedInstanceState);
     }
 
