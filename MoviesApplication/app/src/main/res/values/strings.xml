@@ -5,4 +5,10 @@
     <string name="places">places</string>
     <string name="news">news</string>
     <string name="profile">profile</string>
+    <string name="premieres">premieres</string>
+    <string name="search">search</string>
+    <string name="watchlist">watchlist</string>
+    <string name="watched">watched</string>
+    <string name="recomendation">recommendation</string>
+    <string name="recommendation">recommendation</string>
 </resources>
