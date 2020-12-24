@@ -42,6 +42,22 @@ public class FragmentTwo extends Fragment {
 
 
     @Override
+    public void onResume() {
+        super.onResume();
+        data = databaseViewModel.getWatchlistList();
+        adapter = new WatchlistAdapter(data);
+        ((WatchlistAdapter) adapter).setOnWatchlistMovieClicked(movie -> {
+            //databaseViewModel.deleteWatchlistMovie(movie);
+            //Toast.makeText(getActivity(), "usunieto", LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), MovieDetails.class);
+            intent.putExtra("class", "watchlist");
+            intent.putExtra("object", movie);
+            startActivity(intent);
+        });
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View returnView = inflater.inflate(R.layout.fragment_two, container, false);
@@ -66,5 +82,7 @@ public class FragmentTwo extends Fragment {
         recyclerView.setAdapter(adapter);
 
         return returnView;
+
+
     }
 }

@@ -38,6 +38,19 @@ public class FragmentFour extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        data = databaseViewModel.getWatchedList();
+        adapter = new WatchedAdapter(data);
+        ((WatchedAdapter) adapter).setOnWatchedMovieClicked(movie -> {
+            Intent intent = new Intent(getActivity(), MovieDetails.class);
+            intent.putExtra("class", "watched");
+            intent.putExtra("object", movie);
+            startActivity(intent);
+        });
+        recyclerView.setAdapter(adapter);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
