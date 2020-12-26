@@ -45,7 +45,7 @@ public class FragmentFive extends Fragment {
         data = databaseViewModel.getRecomendationList();
         adapter = new RecomendationAdapter(data);
         ((RecomendationAdapter) adapter).setOnRecomendationMovieClicked(movie -> {
-            Intent intent = new Intent(getActivity(), MovieDetails.class);
+            Intent intent = new Intent(getActivity(), MovieDetailsRecomendation.class);
             intent.putExtra("class", "recomendation");
             intent.putExtra("object", movie);
             startActivity(intent);

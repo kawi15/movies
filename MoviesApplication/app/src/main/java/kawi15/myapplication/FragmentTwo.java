@@ -68,7 +68,7 @@ public class FragmentTwo extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        
+
 
         return returnView;
 

@@ -43,6 +43,18 @@ public class DatabaseViewModel extends AndroidViewModel {
         db.watchlistDao().addMovie(addedMovie);
     }
 
+    public void addWatchlistMovie(Recomendation recomendation){
+        Watchlist addedMovie = new Watchlist();
+        addedMovie.setMovieId(recomendation.getMovieId());
+        addedMovie.setMovieTitle(recomendation.getMovieTitle());
+        addedMovie.setOverview(recomendation.getOverview());
+        addedMovie.setPosterPath(recomendation.getPosterPath());
+        addedMovie.setReleaseDate(recomendation.getReleaseDate());
+        addedMovie.setRating(recomendation.getRating());
+
+        db.watchlistDao().addMovie(addedMovie);
+    }
+
     public void addWatchedMovie(MovieDb movieDb){
         Watched addedMovie = new Watched();
         addedMovie.setMovieId(movieDb.getId());
@@ -63,6 +75,18 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setPosterPath(watchlist.getPosterPath());
         addedMovie.setReleaseDate(watchlist.getReleaseDate());
         addedMovie.setRating(watchlist.getRating());
+
+        db.watchedDao().addMovie(addedMovie);
+    }
+
+    public void addWatchedMovie(Recomendation recomendation){
+        Watched addedMovie = new Watched();
+        addedMovie.setMovieId(recomendation.getMovieId());
+        addedMovie.setMovieTitle(recomendation.getMovieTitle());
+        addedMovie.setOverview(recomendation.getOverview());
+        addedMovie.setPosterPath(recomendation.getPosterPath());
+        addedMovie.setReleaseDate(recomendation.getReleaseDate());
+        addedMovie.setRating(recomendation.getRating());
 
         db.watchedDao().addMovie(addedMovie);
     }
