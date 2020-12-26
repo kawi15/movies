@@ -30,11 +30,29 @@ public class FragmentFive extends Fragment {
         FragmentFive fragment = new FragmentFive();
         return fragment;
     }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
         super.onCreate(savedInstanceState);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        data = databaseViewModel.getRecomendationList();
+        adapter = new RecomendationAdapter(data);
+        ((RecomendationAdapter) adapter).setOnRecomendationMovieClicked(movie -> {
+            Intent intent = new Intent(getActivity(), MovieDetails.class);
+            intent.putExtra("class", "recomendation");
+            intent.putExtra("object", movie);
+            startActivity(intent);
+        });
+        recyclerView.setAdapter(adapter);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,15 +65,7 @@ public class FragmentFive extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        data = databaseViewModel.getRecomendationList();
-        adapter = new RecomendationAdapter(data);
-        ((RecomendationAdapter) adapter).setOnRecomendationMovieClicked(movie -> {
-            Intent intent = new Intent(getActivity(), MovieDetails.class);
-            intent.putExtra("class", "recomendation");
-            intent.putExtra("object", movie);
-            startActivity(intent);
-        });
-        recyclerView.setAdapter(adapter);
+
 
         return returnView;
     }

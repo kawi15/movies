@@ -64,15 +64,6 @@ public class FragmentFour extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        data = databaseViewModel.getWatchedList();
-        adapter = new WatchedAdapter(data);
-        ((WatchedAdapter) adapter).setOnWatchedMovieClicked(movie -> {
-            Intent intent = new Intent(getActivity(), MovieDetails.class);
-            intent.putExtra("class", "watched");
-            intent.putExtra("object", movie);
-            startActivity(intent);
-        });
-        recyclerView.setAdapter(adapter);
 
         return returnView;
     }
