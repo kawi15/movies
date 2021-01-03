@@ -22,6 +22,7 @@ import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 import kawi15.myapplication.database.DatabaseViewModel;
 import kawi15.myapplication.database.Recomendation;
+import kawi15.myapplication.database.Removed;
 import kawi15.myapplication.database.Watched;
 import kawi15.myapplication.database.Watchlist;
 
@@ -33,6 +34,7 @@ public class MovieDetails extends AppCompatActivity {
     private MovieDb movieDb;
     private Recomendation recomendation;
     private String bool;
+    private List<Removed> removed;
     private int movieId;
     TextView textView;
     TextView title;
@@ -54,11 +56,19 @@ public class MovieDetails extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<MovieDb> recomendations) {
+            removed = databaseViewModel.getRemovedFromRecomendations();
             for(MovieDb item : recomendations){
-                databaseViewModel.addRecomendationMovie(item);
+                if(removed.size() == 0){
+                    databaseViewModel.addRecomendationMovie(item);
+                }
+                else {
+                    for (Removed movieRemoved : removed) {
+                        if (item.getId() != movieRemoved.getMovieId()) {
+                            databaseViewModel.addRecomendationMovie(item);
+                        }
+                    }
+                }
             }
-            //Toast toast = Toast.makeText(getApplicationContext(), "dodano", Toast.LENGTH_SHORT);
-            //toast.show();
         }
     }
 
@@ -103,67 +113,57 @@ public class MovieDetails extends AppCompatActivity {
             Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + watched.getPosterPath()).into(imageView);
             title.setText(watched.getMovieTitle());
             overview.setText(watched.getOverview());
-            addToWatched.setText("already in watched");
+            addToWatched.setText("remove from watched");
             addToWatched.setClickable(false);
-            addToWatchlist.setText("remove from watched");
-        }
-        else if(bundle.getString("class").equals("recomendation")){
-            bool = "recomendations";
-            recomendation = (Recomendation) bundle.getSerializable("object");
-            Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + recomendation.getPosterPath()).into(imageView);
-            title.setText(recomendation.getMovieTitle());
-            overview.setText(recomendation.getOverview());
-            addToWatched.setText(" ");
-            addToWatched.setClickable(false);
-            addToWatchlist.setText("remove from recomendations");
+            addToWatchlist.setText("add to watchlist");
         }
     }
 
     public void addToWatchlist(View view) {
-        if(addToWatchlist.getText().equals("add to watchlist")){
-            if(bool.equals("movieDB")){
-                databaseViewModel.addWatchlistMovie(movieDb);
-                movieId = movieDb.getId();
-                Toast toast = Toast.makeText(getApplicationContext(), String.valueOf(movieId), Toast.LENGTH_SHORT);
-                toast.show();
 
-                RecomendationTask rt = new RecomendationTask();
-                rt.execute();
-            }
-        }
-        else if(addToWatchlist.getText().equals("remove from watchlist")){
-            if (bool.equals("watchlist")){
-                databaseViewModel.deleteWatchlistMovie(watchlist);
-            }
+        if(bool.equals("movieDB")){
+            databaseViewModel.addWatchlistMovie(movieDb);
+            movieId = movieDb.getId();
 
-        }
-        else if(addToWatchlist.getText().equals("remove from watched")){
-            databaseViewModel.deleteWatchedMovie(watched);
-            addToWatchlist.setText("removed from watched");
+            RecomendationTask rt = new RecomendationTask();
+            rt.execute();
+
+            addToWatchlist.setText("Added!");
             addToWatchlist.setClickable(false);
         }
-        else if(addToWatchlist.getText().equals("remove from recomendations")){
-            databaseViewModel.deleteRecomendationMovie(recomendation);
+        else if (bool.equals("watchlist")){
+            databaseViewModel.deleteWatchlistMovie(watchlist);
+            addToWatchlist.setText("Removed!");
+            addToWatchlist.setClickable(false);
+        }
+        else if (bool.equals("watched")){
+            databaseViewModel.addWatchlistMovie(watched);
+            databaseViewModel.deleteWatchedMovie(watched);
+            addToWatchlist.setText("Added!");
+            addToWatchlist.setClickable(false);
+            addToWatched.setText("Removed!");
+            addToWatched.setClickable(false);
         }
     }
 
     public void addToWatched(View view) {
-        if (addToWatched.getText().equals("add to watched")){
-            if(bool.equals("movieDB")){
-                databaseViewModel.addWatchedMovie(movieDb);
-            }
-            if (bool.equals("watchlist")){
-                databaseViewModel.addWatchedMovie(watchlist);
-                databaseViewModel.deleteWatchlistMovie(watchlist);
-                addToWatchlist.setText("removed from watchlist");
-                addToWatchlist.setClickable(false);
-                addToWatched.setText("added to watched");
-                addToWatched.setClickable(false);
-            }
+
+        if(bool.equals("movieDB")){
+            databaseViewModel.addWatchedMovie(movieDb);
+            addToWatched.setText("Added!");
+            addToWatched.setClickable(false);
         }
-        else if(addToWatched.getText().equals("remove from watched")){
+        else if (bool.equals("watchlist")){
+            databaseViewModel.addWatchedMovie(watchlist);
+            databaseViewModel.deleteWatchlistMovie(watchlist);
+            addToWatchlist.setText("Removed!");
+            addToWatchlist.setClickable(false);
+            addToWatched.setText("Added!");
+            addToWatched.setClickable(false);
+        }
+        else if(bool.equals("watched")){
             databaseViewModel.deleteWatchedMovie(watched);
-            addToWatched.setText("removed");
+            addToWatched.setText("Removed!");
             addToWatched.setClickable(false);
         }
     }

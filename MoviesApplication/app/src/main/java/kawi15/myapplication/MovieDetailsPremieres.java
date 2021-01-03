@@ -26,10 +26,10 @@ import kawi15.myapplication.database.Removed;
 import kawi15.myapplication.database.Watched;
 import kawi15.myapplication.database.Watchlist;
 
-public class MovieDetailsRecomendation extends AppCompatActivity {
+public class MovieDetailsPremieres extends AppCompatActivity {
 
     private DatabaseViewModel databaseViewModel;
-    private Recomendation recomendation;
+    private MovieDb movieDb;
     private int movieId;
     private List<Removed> removed;
     TextView textView;
@@ -38,8 +38,6 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
     TextView overview;
     ImageView imageView;
     Button addToWatchlist;
-    Button addToWatched;
-    Button removeFromRecomendations;
 
 
 
@@ -57,9 +55,14 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
         protected void onPostExecute(List<MovieDb> recomendations) {
             removed = databaseViewModel.getRemovedFromRecomendations();
             for(MovieDb item : recomendations){
-                for(Removed movieRemoved : removed){
-                    if(item.getId() != movieRemoved.getMovieId()){
-                        databaseViewModel.addRecomendationMovie(item);
+                if(removed == null){
+                    databaseViewModel.addRecomendationMovie(item);
+                }
+                else {
+                    for (Removed movieRemoved : removed) {
+                        if (item.getId() != movieRemoved.getMovieId()) {
+                            databaseViewModel.addRecomendationMovie(item);
+                        }
                     }
                 }
             }
@@ -69,7 +72,7 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.movie_details_recomendation);
+        setContentView(R.layout.movie_details_premieres);
         databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
         textView = findViewById(R.id.t1);
         title = findViewById(R.id.title);
@@ -78,52 +81,27 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
         overview.setMovementMethod(new ScrollingMovementMethod());
         imageView = findViewById(R.id.image);
         addToWatchlist = findViewById(R.id.add_watchlist);
-        addToWatched = findViewById(R.id.add_watched);
-        removeFromRecomendations = findViewById(R.id.remove_recomendation);
+
 
         Bundle bundle = getIntent().getExtras();
 
-        recomendation = (Recomendation) bundle.getSerializable("object");
-        Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + recomendation.getPosterPath()).into(imageView);
-        title.setText(recomendation.getMovieTitle());
-        overview.setText(recomendation.getOverview());
-        addToWatched.setText("add to watched");
+        movieDb = (MovieDb) bundle.getSerializable("object");
+        Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + movieDb.getPosterPath()).into(imageView);
+        title.setText(movieDb.getOriginalTitle());
+        overview.setText(movieDb.getOverview());
         addToWatchlist.setText("add to watchlist");
-        removeFromRecomendations.setText("remove from recomendations");
+
     }
 
     public void addToWatchlist(View view) {
-        movieId = recomendation.getMovieId();
-        databaseViewModel.addWatchlistMovie(recomendation);
-        databaseViewModel.addRemovedMovie(recomendation);
-        databaseViewModel.deleteRecomendationMovie(recomendation);
-
+        databaseViewModel.addWatchlistMovie(movieDb);
+        movieId = movieDb.getId();
+        //Toast toast = Toast.makeText(getApplicationContext(), String.valueOf(movieId), Toast.LENGTH_SHORT);
+        //toast.show();
         addToWatchlist.setText("Added!");
         addToWatchlist.setClickable(false);
 
         RecomendationTask rt = new RecomendationTask();
         rt.execute();
-    }
-
-    public void addToWatched(View view) {
-        movieId = recomendation.getMovieId();
-        databaseViewModel.addWatchedMovie(recomendation);
-        databaseViewModel.addRemovedMovie(recomendation);
-        databaseViewModel.deleteRecomendationMovie(recomendation);
-
-
-        addToWatched.setText("Added!");
-        addToWatched.setClickable(false);
-
-        RecomendationTask rt = new RecomendationTask();
-        rt.execute();
-    }
-
-    public void removeFromRecomendations(View view) {
-        databaseViewModel.addRemovedMovie(recomendation);
-        databaseViewModel.deleteRecomendationMovie(recomendation);
-
-        removeFromRecomendations.setText("Removed!");
-        removeFromRecomendations.setClickable(false);
     }
 }

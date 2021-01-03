@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".MovieDetails"/>
         <activity android:name=".MovieDetailsRecomendation"/>
+        <activity android:name=".MovieDetailsPremieres"/>
     </application>
 
 </manifest>

@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import info.movito.themoviedbapi.TmdbApi;
@@ -37,7 +39,6 @@ public class FragmentOne extends Fragment{
         return fragment;
     }
 
-
     public class MovieTask extends AsyncTask<Void, Void, List<MovieDb>> {
         @Override
         protected List<MovieDb> doInBackground(Void... voids) {
@@ -52,8 +53,7 @@ public class FragmentOne extends Fragment{
             data = movieDb;
             adapter = new CustomAdapter(data);
             ((CustomAdapter) adapter).setOnMovieDbClicked(movieDb2 -> {
-                Intent intent = new Intent(getActivity(), MovieDetails.class);
-                intent.putExtra("class", "movieDB");
+                Intent intent = new Intent(getActivity(), MovieDetailsPremieres.class);
                 intent.putExtra("object", movieDb2);
                 startActivity(intent);
             });

@@ -18,6 +18,8 @@ public class DatabaseViewModel extends AndroidViewModel {
         db = AppDatabase.getDatabase(application);
     }
 
+    public List<Removed> getRemovedFromRecomendations() { return db.removedDao().getMoviesId();}
+
     public List<Watchlist> getWatchlistList() {
         return db.watchlistDao().getAll();
     }
@@ -51,6 +53,18 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setPosterPath(recomendation.getPosterPath());
         addedMovie.setReleaseDate(recomendation.getReleaseDate());
         addedMovie.setRating(recomendation.getRating());
+
+        db.watchlistDao().addMovie(addedMovie);
+    }
+
+    public void addWatchlistMovie(Watched watched){
+        Watchlist addedMovie = new Watchlist();
+        addedMovie.setMovieId(watched.getMovieId());
+        addedMovie.setMovieTitle(watched.getMovieTitle());
+        addedMovie.setOverview(watched.getOverview());
+        addedMovie.setPosterPath(watched.getPosterPath());
+        addedMovie.setReleaseDate(watched.getReleaseDate());
+        addedMovie.setRating(watched.getRating());
 
         db.watchlistDao().addMovie(addedMovie);
     }
@@ -101,6 +115,13 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setRating(movieDb.getUserRating());
 
         db.recomendationDao().addMovie(addedMovie);
+    }
+
+    public void addRemovedMovie(Recomendation recomendation){
+        Removed addedMovie = new Removed();
+        addedMovie.setMovieId(recomendation.getMovieId());
+
+        db.removedDao().addMovie(addedMovie);
     }
 
     public void deleteWatchlistMovie(Watchlist watchlist){
