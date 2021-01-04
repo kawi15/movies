@@ -55,12 +55,19 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<MovieDb> recomendations) {
-            removed = databaseViewModel.getRemovedFromRecomendations();
+            /*removed = databaseViewModel.getRemovedFromRecomendations();
             for(MovieDb item : recomendations){
                 for(Removed movieRemoved : removed){
                     if(item.getId() != movieRemoved.getMovieId()){
                         databaseViewModel.addRecomendationMovie(item);
                     }
+                }
+            }*/
+
+            for(MovieDb item : recomendations){
+                int toCheck = item.getId();
+                if(databaseViewModel.getRemoveFromRecomendations(toCheck) == null){
+                    databaseViewModel.addRecomendationMovie(item);
                 }
             }
         }

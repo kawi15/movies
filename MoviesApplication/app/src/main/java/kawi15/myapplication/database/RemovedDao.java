@@ -10,7 +10,10 @@ import java.util.List;
 @Dao
 public interface RemovedDao {
 
-    @Query("SELECT * FROM  Removed")
+    @Query("SELECT * FROM Removed WHERE id = :id")
+    Removed getMovieid(int id);
+
+    @Query("SELECT * FROM  Removed") // stara wersja do algorytmu usuwania z rekomendacji
     List<Removed> getMoviesId();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -56,7 +56,7 @@ public class MovieDetails extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<MovieDb> recomendations) {
-            removed = databaseViewModel.getRemovedFromRecomendations();
+            /*removed = databaseViewModel.getRemovedFromRecomendations();
             for(MovieDb item : recomendations){
                 if(removed.size() == 0){
                     databaseViewModel.addRecomendationMovie(item);
@@ -68,7 +68,14 @@ public class MovieDetails extends AppCompatActivity {
                         }
                     }
                 }
+            }*/
+            for(MovieDb item : recomendations){
+                int toCheck = item.getId();
+                if(databaseViewModel.getRemoveFromRecomendations(toCheck) == null){
+                    databaseViewModel.addRecomendationMovie(item);
+                }
             }
+
         }
     }
 
@@ -114,7 +121,6 @@ public class MovieDetails extends AppCompatActivity {
             title.setText(watched.getMovieTitle());
             overview.setText(watched.getOverview());
             addToWatched.setText("remove from watched");
-            addToWatched.setClickable(false);
             addToWatchlist.setText("add to watchlist");
         }
     }

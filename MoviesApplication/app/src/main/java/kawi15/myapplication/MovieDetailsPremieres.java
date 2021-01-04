@@ -53,7 +53,7 @@ public class MovieDetailsPremieres extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<MovieDb> recomendations) {
-            removed = databaseViewModel.getRemovedFromRecomendations();
+            /*removed = databaseViewModel.getRemovedFromRecomendations();
             for(MovieDb item : recomendations){
                 if(removed == null){
                     databaseViewModel.addRecomendationMovie(item);
@@ -64,6 +64,13 @@ public class MovieDetailsPremieres extends AppCompatActivity {
                             databaseViewModel.addRecomendationMovie(item);
                         }
                     }
+                }
+            }*/
+
+            for(MovieDb item : recomendations){
+                int toCheck = item.getId();
+                if(databaseViewModel.getRemoveFromRecomendations(toCheck) == null){
+                    databaseViewModel.addRecomendationMovie(item);
                 }
             }
         }

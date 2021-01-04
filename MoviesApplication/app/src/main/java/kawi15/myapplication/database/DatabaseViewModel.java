@@ -18,7 +18,9 @@ public class DatabaseViewModel extends AndroidViewModel {
         db = AppDatabase.getDatabase(application);
     }
 
-    public List<Removed> getRemovedFromRecomendations() { return db.removedDao().getMoviesId();}
+    public Removed getRemoveFromRecomendations(int id) {return db.removedDao().getMovieid(id);}
+
+    public List<Removed> getRemovedFromRecomendations() { return db.removedDao().getMoviesId();} // stara wersja do algorytmu usuwania z rekomendacji
 
     public List<Watchlist> getWatchlistList() {
         return db.watchlistDao().getAll();
