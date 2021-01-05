@@ -19,7 +19,9 @@ import java.util.List;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.model.MovieDb;
+import info.movito.themoviedbapi.model.ProductionCompany;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
+import info.movito.themoviedbapi.model.people.PersonCast;
 import kawi15.myapplication.database.DatabaseViewModel;
 import kawi15.myapplication.database.Recomendation;
 import kawi15.myapplication.database.Removed;
@@ -36,10 +38,13 @@ public class MovieDetails extends AppCompatActivity {
     private String bool;
     private List<Removed> removed;
     private int movieId;
-    TextView textView;
+    String ratingText;
+    TextView rating;
     TextView title;
     TextView releaseDate;
     TextView overview;
+    TextView productionCompany;
+    String name;
     ImageView imageView;
     Button addToWatchlist;
     Button addToWatched;
@@ -50,6 +55,8 @@ public class MovieDetails extends AppCompatActivity {
         protected List<MovieDb> doInBackground(Void... voids) {
             MovieResultsPage movies = new TmdbApi("f753872c7aa5c000e0f46a4ea6fc49b2").getMovies().getRecommendedMovies(movieId, "en-US", 1);
             List<MovieDb> listMovies = movies.getResults();
+
+
 
             return listMovies;
         }
@@ -84,11 +91,13 @@ public class MovieDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_details);
         databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
-        textView = findViewById(R.id.t1);
+        releaseDate = findViewById(R.id.t1);
+        rating = findViewById(R.id.tt1);
         title = findViewById(R.id.title);
-        //releaseDate = findViewById(R.id.first_text2);
         overview = findViewById(R.id.overview);
         overview.setMovementMethod(new ScrollingMovementMethod());
+        overview.setScrollbarFadingEnabled(false);
+        productionCompany = findViewById(R.id.ttt3);
         imageView = findViewById(R.id.image);
         addToWatchlist = findViewById(R.id.add_watchlist);
         addToWatched = findViewById(R.id.add_watched);
@@ -99,8 +108,16 @@ public class MovieDetails extends AppCompatActivity {
             movieDb = (MovieDb) bundle.getSerializable("object");
             Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + movieDb.getPosterPath()).into(imageView);
             title.setText(movieDb.getTitle());
-            //releaseDate.setText(movieDb.getReleaseDate());
+            releaseDate.setText(movieDb.getReleaseDate());
+
+            if(movieDb.getVoteAverage() == 0.0){
+                ratingText = "not rated";
+            }
+            else ratingText = String.valueOf(movieDb.getVoteAverage()) + " / 10";
+
+            rating.setText(ratingText);
             overview.setText(movieDb.getOverview());
+
             addToWatchlist.setText("add to watchlist");
             addToWatched.setText("add to watched");
         }
@@ -109,6 +126,7 @@ public class MovieDetails extends AppCompatActivity {
             watchlist = (Watchlist) bundle.getSerializable("object");
             Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + watchlist.getPosterPath()).into(imageView);
             title.setText(watchlist.getMovieTitle());
+            releaseDate.setText(movieDb.getReleaseDate());
             overview.setText(watchlist.getOverview());
             addToWatchlist.setText("remove from watchlist");
             addToWatched.setText("add to watched");
@@ -119,6 +137,7 @@ public class MovieDetails extends AppCompatActivity {
             watched = (Watched) bundle.getSerializable("object");
             Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + watched.getPosterPath()).into(imageView);
             title.setText(watched.getMovieTitle());
+            releaseDate.setText(movieDb.getReleaseDate());
             overview.setText(watched.getOverview());
             addToWatched.setText("remove from watched");
             addToWatchlist.setText("add to watchlist");
