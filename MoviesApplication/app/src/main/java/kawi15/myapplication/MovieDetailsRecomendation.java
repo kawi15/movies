@@ -31,12 +31,15 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
     private DatabaseViewModel databaseViewModel;
     private Recomendation recomendation;
     private int movieId;
-    private List<Removed> removed;
-    TextView textView;
+
     TextView title;
     TextView releaseDate;
     TextView overview;
+    TextView popularity;
+    TextView rating;
+    TextView votes;
     ImageView imageView;
+    String ratingText;
     Button addToWatchlist;
     Button addToWatched;
     Button removeFromRecomendations;
@@ -78,11 +81,14 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_details_recomendation);
         databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
-        textView = findViewById(R.id.t1);
+        releaseDate = findViewById(R.id.t1);
         title = findViewById(R.id.title);
-        //releaseDate = findViewById(R.id.first_text2);
         overview = findViewById(R.id.overview);
         overview.setMovementMethod(new ScrollingMovementMethod());
+        overview.setScrollbarFadingEnabled(false);
+        popularity = findViewById(R.id.tt1);
+        rating = findViewById(R.id.ttt3);
+        votes = findViewById(R.id.ttt4);
         imageView = findViewById(R.id.image);
         addToWatchlist = findViewById(R.id.add_watchlist);
         addToWatched = findViewById(R.id.add_watched);
@@ -94,6 +100,17 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
         Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + recomendation.getPosterPath()).into(imageView);
         title.setText(recomendation.getMovieTitle());
         overview.setText(recomendation.getOverview());
+        releaseDate.setText(recomendation.getReleaseDate());
+        popularity.setText(String.valueOf(recomendation.getPopularity()));
+
+        if(recomendation.getRating() == 0.0){
+            ratingText = "not rated";
+        }
+        else ratingText = String.valueOf(recomendation.getRating()) + " / 10";
+
+        rating.setText(ratingText);
+        votes.setText(String.valueOf(recomendation.getVotes()));
+
         addToWatched.setText("add to watched");
         addToWatchlist.setText("add to watchlist");
         removeFromRecomendations.setText("remove from recomendations");

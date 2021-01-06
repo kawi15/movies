@@ -27,6 +27,12 @@ public class Watchlist implements Serializable {
     @ColumnInfo(name = "rating")
     private float rating;
 
+    @ColumnInfo(name = "votes")
+    private int votes;
+
+    @ColumnInfo(name = "popularity")
+    private float popularity;
+
     public int getMovieId() {
         return movieId;
     }
@@ -73,5 +79,21 @@ public class Watchlist implements Serializable {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
+    }
+
+    public float getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(float popularity) {
+        this.popularity = popularity;
     }
 }

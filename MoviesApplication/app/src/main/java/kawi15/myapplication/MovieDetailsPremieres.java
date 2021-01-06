@@ -32,11 +32,14 @@ public class MovieDetailsPremieres extends AppCompatActivity {
     private MovieDb movieDb;
     private int movieId;
     private List<Removed> removed;
-    TextView textView;
     TextView title;
     TextView releaseDate;
+    TextView popularity;
+    TextView votes;
+    TextView rating;
     TextView overview;
     ImageView imageView;
+    String ratingText;
     Button addToWatchlist;
 
 
@@ -81,11 +84,14 @@ public class MovieDetailsPremieres extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_details_premieres);
         databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
-        textView = findViewById(R.id.t1);
         title = findViewById(R.id.title);
-        //releaseDate = findViewById(R.id.first_text2);
+        releaseDate = findViewById(R.id.t1);
         overview = findViewById(R.id.overview);
         overview.setMovementMethod(new ScrollingMovementMethod());
+        overview.setScrollbarFadingEnabled(false);
+        popularity = findViewById(R.id.tt1);
+        rating = findViewById(R.id.ttt3);
+        votes = findViewById(R.id.ttt4);
         imageView = findViewById(R.id.image);
         addToWatchlist = findViewById(R.id.add_watchlist);
 
@@ -96,6 +102,16 @@ public class MovieDetailsPremieres extends AppCompatActivity {
         Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + movieDb.getPosterPath()).into(imageView);
         title.setText(movieDb.getOriginalTitle());
         overview.setText(movieDb.getOverview());
+        releaseDate.setText(movieDb.getReleaseDate());
+        popularity.setText(String.valueOf(movieDb.getPopularity()));
+
+        if(movieDb.getVoteAverage() == 0.0){
+            ratingText = "not rated";
+        }
+        else ratingText = String.valueOf(movieDb.getVoteAverage()) + " / 10";
+
+        rating.setText(ratingText);
+        votes.setText(String.valueOf(movieDb.getVoteCount()));
         addToWatchlist.setText("add to watchlist");
 
     }
@@ -103,8 +119,7 @@ public class MovieDetailsPremieres extends AppCompatActivity {
     public void addToWatchlist(View view) {
         databaseViewModel.addWatchlistMovie(movieDb);
         movieId = movieDb.getId();
-        //Toast toast = Toast.makeText(getApplicationContext(), String.valueOf(movieId), Toast.LENGTH_SHORT);
-        //toast.show();
+
         addToWatchlist.setText("Added!");
         addToWatchlist.setClickable(false);
 

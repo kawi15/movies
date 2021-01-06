@@ -42,7 +42,10 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setOverview(movieDb.getOverview());
         addedMovie.setPosterPath(movieDb.getPosterPath());
         addedMovie.setReleaseDate(movieDb.getReleaseDate());
-        addedMovie.setRating(movieDb.getUserRating());
+        addedMovie.setRating(movieDb.getVoteAverage());
+        addedMovie.setVotes(movieDb.getVoteCount());
+        addedMovie.setPopularity(movieDb.getPopularity());
+
 
         db.watchlistDao().addMovie(addedMovie);
     }
@@ -55,6 +58,9 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setPosterPath(recomendation.getPosterPath());
         addedMovie.setReleaseDate(recomendation.getReleaseDate());
         addedMovie.setRating(recomendation.getRating());
+        addedMovie.setVotes(recomendation.getVotes());
+        addedMovie.setPopularity(recomendation.getPopularity());
+
 
         db.watchlistDao().addMovie(addedMovie);
     }
@@ -67,6 +73,9 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setPosterPath(watched.getPosterPath());
         addedMovie.setReleaseDate(watched.getReleaseDate());
         addedMovie.setRating(watched.getRating());
+        addedMovie.setVotes(watched.getVotes());
+        addedMovie.setPopularity(watched.getPopularity());
+
 
         db.watchlistDao().addMovie(addedMovie);
     }
@@ -78,7 +87,10 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setOverview(movieDb.getOverview());
         addedMovie.setPosterPath(movieDb.getPosterPath());
         addedMovie.setReleaseDate(movieDb.getReleaseDate());
-        addedMovie.setRating(movieDb.getUserRating());
+        addedMovie.setRating(movieDb.getVoteAverage());
+        addedMovie.setVotes(movieDb.getVoteCount());
+        addedMovie.setPopularity(movieDb.getPopularity());
+
 
         db.watchedDao().addMovie(addedMovie);
     }
@@ -91,6 +103,9 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setPosterPath(watchlist.getPosterPath());
         addedMovie.setReleaseDate(watchlist.getReleaseDate());
         addedMovie.setRating(watchlist.getRating());
+        addedMovie.setVotes(watchlist.getVotes());
+        addedMovie.setPopularity(watchlist.getPopularity());
+
 
         db.watchedDao().addMovie(addedMovie);
     }
@@ -103,6 +118,9 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setPosterPath(recomendation.getPosterPath());
         addedMovie.setReleaseDate(recomendation.getReleaseDate());
         addedMovie.setRating(recomendation.getRating());
+        addedMovie.setVotes(recomendation.getVotes());
+        addedMovie.setPopularity(recomendation.getPopularity());
+
 
         db.watchedDao().addMovie(addedMovie);
     }
@@ -114,8 +132,9 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setOverview(movieDb.getOverview());
         addedMovie.setPosterPath(movieDb.getPosterPath());
         addedMovie.setReleaseDate(movieDb.getReleaseDate());
-        addedMovie.setRating(movieDb.getUserRating());
-
+        addedMovie.setRating(movieDb.getVoteAverage());
+        addedMovie.setVotes(movieDb.getVoteCount());
+        addedMovie.setPopularity(movieDb.getPopularity());
         db.recomendationDao().addMovie(addedMovie);
     }
 

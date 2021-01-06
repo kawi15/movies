@@ -18,6 +18,8 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import info.movito.themoviedbapi.TmdbApi;
+import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.ProductionCompany;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
@@ -43,8 +45,8 @@ public class MovieDetails extends AppCompatActivity {
     TextView title;
     TextView releaseDate;
     TextView overview;
-    TextView productionCompany;
-    String name;
+    TextView votes;
+    TextView popularity;
     ImageView imageView;
     Button addToWatchlist;
     Button addToWatched;
@@ -55,7 +57,6 @@ public class MovieDetails extends AppCompatActivity {
         protected List<MovieDb> doInBackground(Void... voids) {
             MovieResultsPage movies = new TmdbApi("f753872c7aa5c000e0f46a4ea6fc49b2").getMovies().getRecommendedMovies(movieId, "en-US", 1);
             List<MovieDb> listMovies = movies.getResults();
-
 
 
             return listMovies;
@@ -76,15 +77,18 @@ public class MovieDetails extends AppCompatActivity {
                     }
                 }
             }*/
+
             for(MovieDb item : recomendations){
                 int toCheck = item.getId();
                 if(databaseViewModel.getRemoveFromRecomendations(toCheck) == null){
                     databaseViewModel.addRecomendationMovie(item);
                 }
+
             }
 
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +96,13 @@ public class MovieDetails extends AppCompatActivity {
         setContentView(R.layout.movie_details);
         databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
         releaseDate = findViewById(R.id.t1);
-        rating = findViewById(R.id.tt1);
+        rating = findViewById(R.id.ttt3);
         title = findViewById(R.id.title);
         overview = findViewById(R.id.overview);
         overview.setMovementMethod(new ScrollingMovementMethod());
         overview.setScrollbarFadingEnabled(false);
-        productionCompany = findViewById(R.id.ttt3);
+        votes = findViewById(R.id.ttt4);
+        popularity = findViewById(R.id.tt1);
         imageView = findViewById(R.id.image);
         addToWatchlist = findViewById(R.id.add_watchlist);
         addToWatched = findViewById(R.id.add_watched);
@@ -110,6 +115,7 @@ public class MovieDetails extends AppCompatActivity {
             title.setText(movieDb.getTitle());
             releaseDate.setText(movieDb.getReleaseDate());
 
+
             if(movieDb.getVoteAverage() == 0.0){
                 ratingText = "not rated";
             }
@@ -117,6 +123,8 @@ public class MovieDetails extends AppCompatActivity {
 
             rating.setText(ratingText);
             overview.setText(movieDb.getOverview());
+            votes.setText(String.valueOf(movieDb.getVoteCount()));
+            popularity.setText(String.valueOf(movieDb.getPopularity()));
 
             addToWatchlist.setText("add to watchlist");
             addToWatched.setText("add to watched");
@@ -126,8 +134,18 @@ public class MovieDetails extends AppCompatActivity {
             watchlist = (Watchlist) bundle.getSerializable("object");
             Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + watchlist.getPosterPath()).into(imageView);
             title.setText(watchlist.getMovieTitle());
-            releaseDate.setText(movieDb.getReleaseDate());
+            releaseDate.setText(watchlist.getReleaseDate());
             overview.setText(watchlist.getOverview());
+
+            if(watchlist.getRating() == 0.0){
+                ratingText = "not rated";
+            }
+            else ratingText = String.valueOf(watchlist.getRating() + " / 10");
+
+            rating.setText(ratingText);
+            votes.setText(String.valueOf(watchlist.getVotes()));
+            popularity.setText(String.valueOf(watchlist.getPopularity()));
+
             addToWatchlist.setText("remove from watchlist");
             addToWatched.setText("add to watched");
 
@@ -137,8 +155,18 @@ public class MovieDetails extends AppCompatActivity {
             watched = (Watched) bundle.getSerializable("object");
             Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + watched.getPosterPath()).into(imageView);
             title.setText(watched.getMovieTitle());
-            releaseDate.setText(movieDb.getReleaseDate());
+            releaseDate.setText(watched.getReleaseDate());
             overview.setText(watched.getOverview());
+
+            if(watched.getRating() == 0.0){
+                ratingText = "not rated";
+            }
+            else ratingText = String.valueOf(watched.getRating() + " / 10");
+
+            rating.setText(ratingText);
+            votes.setText(String.valueOf(watched.getVotes()));
+            popularity.setText(String.valueOf(watched.getPopularity()));
+
             addToWatched.setText("remove from watched");
             addToWatchlist.setText("add to watchlist");
         }
@@ -177,6 +205,11 @@ public class MovieDetails extends AppCompatActivity {
             databaseViewModel.addWatchedMovie(movieDb);
             addToWatched.setText("Added!");
             addToWatched.setClickable(false);
+
+            movieId = movieDb.getId();
+
+            RecomendationTask rt = new RecomendationTask();
+            rt.execute();
         }
         else if (bool.equals("watchlist")){
             databaseViewModel.addWatchedMovie(watchlist);

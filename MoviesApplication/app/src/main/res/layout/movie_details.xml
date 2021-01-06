@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="rating"
+                android:text="popularity"
                 android:layout_marginTop="10dp"
 
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="production company"
+                    android:text="rating"
 
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -158,11 +158,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/ttt4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="sda"
+
 
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -171,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="das"
+                    android:text="votes"
 
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
