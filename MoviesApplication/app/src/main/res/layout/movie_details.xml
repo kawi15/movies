@@ -54,6 +54,7 @@
             android:background="@drawable/overview_border"
             android:id="@+id/overview"
             android:maxLines="4"
+            android:textAlignment="center"
             android:scrollbars="vertical" />
 
 
