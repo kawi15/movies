@@ -45,7 +45,7 @@ public class FragmentThree extends Fragment {
 
         @Override
         protected List<MovieDb> doInBackground(Void... voids) {
-            MovieResultsPage movies = new TmdbApi("f753872c7aa5c000e0f46a4ea6fc49b2").getSearch().searchMovie(toSearch, 1970-2030, "en-US", false, 1);
+            MovieResultsPage movies = new TmdbApi("f753872c7aa5c000e0f46a4ea6fc49b2").getSearch().searchMovie(toSearch, 1900-2030, "en-US", false, 1);
             List<MovieDb> listMovies = movies.getResults();
 
             return listMovies;
@@ -54,8 +54,8 @@ public class FragmentThree extends Fragment {
         @Override
         protected void onPostExecute(List<MovieDb> movieDbs) {
             data = movieDbs;
-            adapter = new SearchAdapter(data);
-            ((SearchAdapter) adapter).setOnSearchMovieClicked(movieDb2 -> {
+            adapter = new CustomAdapter(data);
+            ((CustomAdapter) adapter).setOnMovieDbClicked(movieDb2 -> {
                 Intent intent = new Intent(getActivity(), MovieDetails.class);
                 intent.putExtra("class", "movieDB");
                 intent.putExtra("object", movieDb2);

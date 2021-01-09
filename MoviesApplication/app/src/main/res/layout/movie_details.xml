@@ -75,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
+
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
@@ -84,7 +85,6 @@
                 android:layout_gravity="center_horizontal"
                 android:text="release date"
                 android:layout_marginTop="10dp"
-
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </LinearLayout>
@@ -102,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
+
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
@@ -111,7 +112,6 @@
                 android:layout_gravity="center_horizontal"
                 android:text="popularity"
                 android:layout_marginTop="10dp"
-
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </LinearLayout>
@@ -137,7 +137,6 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
 
-
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
@@ -146,7 +145,6 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:text="rating"
-
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </LinearLayout>
@@ -165,7 +163,6 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
 
-
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
@@ -174,7 +171,6 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:text="votes"
-
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </LinearLayout>
@@ -202,7 +198,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:onClick="addToWatchlist"/>
+                    android:onClick="addToWatchlist" />
             </LinearLayout>
 
             <LinearLayout
@@ -217,7 +213,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:onClick="addToWatched"/>
+                    android:onClick="addToWatched" />
             </LinearLayout>
 
         </LinearLayout>

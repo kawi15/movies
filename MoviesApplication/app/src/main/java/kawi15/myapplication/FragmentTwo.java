@@ -47,8 +47,6 @@ public class FragmentTwo extends Fragment {
         data = databaseViewModel.getWatchlistList();
         adapter = new WatchlistAdapter(data);
         ((WatchlistAdapter) adapter).setOnWatchlistMovieClicked(movie -> {
-            //databaseViewModel.deleteWatchlistMovie(movie);
-            //Toast.makeText(getActivity(), "usunieto", LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), MovieDetails.class);
             intent.putExtra("class", "watchlist");
             intent.putExtra("object", movie);

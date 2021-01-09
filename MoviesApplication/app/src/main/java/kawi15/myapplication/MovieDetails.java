@@ -1,5 +1,7 @@
 package kawi15.myapplication;
 
+import android.app.Application;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -58,34 +60,18 @@ public class MovieDetails extends AppCompatActivity {
             MovieResultsPage movies = new TmdbApi("f753872c7aa5c000e0f46a4ea6fc49b2").getMovies().getRecommendedMovies(movieId, "en-US", 1);
             List<MovieDb> listMovies = movies.getResults();
 
-
             return listMovies;
         }
 
         @Override
         protected void onPostExecute(List<MovieDb> recomendations) {
-            /*removed = databaseViewModel.getRemovedFromRecomendations();
-            for(MovieDb item : recomendations){
-                if(removed.size() == 0){
-                    databaseViewModel.addRecomendationMovie(item);
-                }
-                else {
-                    for (Removed movieRemoved : removed) {
-                        if (item.getId() != movieRemoved.getMovieId()) {
-                            databaseViewModel.addRecomendationMovie(item);
-                        }
-                    }
-                }
-            }*/
 
             for(MovieDb item : recomendations){
                 int toCheck = item.getId();
                 if(databaseViewModel.getRemoveFromRecomendations(toCheck) == null){
                     databaseViewModel.addRecomendationMovie(item);
                 }
-
             }
-
         }
     }
 
