@@ -43,7 +43,8 @@ public class FragmentOne extends Fragment{
     public class MovieTask extends AsyncTask<Void, Void, List<MovieDb>> {
         @Override
         protected List<MovieDb> doInBackground(Void... voids) {
-            MovieResultsPage movies = new TmdbApi("f753872c7aa5c000e0f46a4ea6fc49b2").getMovies().getUpcoming("en-US", 1, "US");
+            MovieResultsPage movies = new TmdbApi("f753872c7aa5c000e0f46a4ea6fc49b2")
+                    .getMovies().getUpcoming("en-US", 1, "US");
             List<MovieDb> listMovies = movies.getResults();
 
             return listMovies;

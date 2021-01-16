@@ -45,7 +45,8 @@ public class FragmentThree extends Fragment {
 
         @Override
         protected List<MovieDb> doInBackground(Void... voids) {
-            MovieResultsPage movies = new TmdbApi("f753872c7aa5c000e0f46a4ea6fc49b2").getSearch().searchMovie(toSearch, 1900-2030, "en-US", false, 1);
+            MovieResultsPage movies = new TmdbApi("f753872c7aa5c000e0f46a4ea6fc49b2")
+                    .getSearch().searchMovie(toSearch, 1900-2030, "en-US", false, 1);
             List<MovieDb> listMovies = movies.getResults();
 
             return listMovies;

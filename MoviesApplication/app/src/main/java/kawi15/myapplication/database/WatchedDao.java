@@ -20,3 +20,4 @@ public interface WatchedDao {
     @Delete
     void deleteMovie(Watched watchedMovie);
 }
+

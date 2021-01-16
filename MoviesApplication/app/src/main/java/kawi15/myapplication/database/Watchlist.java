@@ -97,3 +97,4 @@ public class Watchlist implements Serializable {
         this.popularity = popularity;
     }
 }
+

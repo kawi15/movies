@@ -57,7 +57,8 @@ public class MovieDetails extends AppCompatActivity {
 
         @Override
         protected List<MovieDb> doInBackground(Void... voids) {
-            MovieResultsPage movies = new TmdbApi("f753872c7aa5c000e0f46a4ea6fc49b2").getMovies().getRecommendedMovies(movieId, "en-US", 1);
+            MovieResultsPage movies = new TmdbApi("f753872c7aa5c000e0f46a4ea6fc49b2")
+                    .getMovies().getRecommendedMovies(movieId, "en-US", 1);
             List<MovieDb> listMovies = movies.getResults();
 
             return listMovies;
@@ -65,7 +66,6 @@ public class MovieDetails extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<MovieDb> recomendations) {
-
             for(MovieDb item : recomendations){
                 int toCheck = item.getId();
                 if(databaseViewModel.getRemoveFromRecomendations(toCheck) == null){
