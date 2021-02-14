@@ -23,7 +23,7 @@
     <item
         android:id="@+id/page_5"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_recommend_24"
+        android:icon="@drawable/ic_baseline_folder_24"
         android:title="@string/recommendation"/>
 </menu>
 
