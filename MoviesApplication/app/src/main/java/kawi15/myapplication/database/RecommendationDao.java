@@ -9,14 +9,14 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface RecomendationDao {
+public interface RecommendationDao {
 
-    @Query("SELECT * FROM Recomendation ORDER BY movie_title ASC")
-    List<Recomendation> getAll();
+    @Query("SELECT * FROM Recommendation ORDER BY movie_title ASC")
+    List<Recommendation> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addMovie(Recomendation recomendation);
+    void addMovie(Recommendation recommendation);
 
     @Delete
-    void deleteMovie(Recomendation recomendation);
+    void deleteMovie(Recommendation recommendation);
 }

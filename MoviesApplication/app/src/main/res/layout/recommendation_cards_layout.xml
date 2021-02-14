@@ -19,7 +19,7 @@
             android:orientation="horizontal" >
 
             <ImageView
-                android:id="@+id/recomendation_image_view"
+                android:id="@+id/recommendation_image_view"
                 android:tag="image_tag"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/recomendation_text1"
+                    android:id="@+id/recommendation_text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -42,7 +42,7 @@
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
-                    android:id="@+id/recomendation_text2"
+                    android:id="@+id/recommendation_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

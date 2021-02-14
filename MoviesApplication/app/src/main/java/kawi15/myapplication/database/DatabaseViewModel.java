@@ -4,7 +4,6 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.room.Room;
 
 import java.util.List;
 
@@ -18,9 +17,7 @@ public class DatabaseViewModel extends AndroidViewModel {
         db = AppDatabase.getDatabase(application);
     }
 
-    public Removed getRemoveFromRecomendations(int id) {return db.removedDao().getMovieid(id);}
-
-    public List<Removed> getRemovedFromRecomendations() { return db.removedDao().getMoviesId();} // stara wersja do algorytmu usuwania z rekomendacji
+    public Removed getRemoveFromRecommendations(int id) {return db.removedDao().getMovieid(id);}
 
     public List<Watchlist> getWatchlistList() {
         return db.watchlistDao().getAll();
@@ -30,8 +27,8 @@ public class DatabaseViewModel extends AndroidViewModel {
         return db.watchedDao().getAll();
     }
 
-    public List<Recomendation> getRecomendationList() {
-        return db.recomendationDao().getAll();
+    public List<Recommendation> getRecommendationList() {
+        return db.recommendationDao().getAll();
     }
 
 
@@ -50,16 +47,16 @@ public class DatabaseViewModel extends AndroidViewModel {
         db.watchlistDao().addMovie(addedMovie);
     }
 
-    public void addWatchlistMovie(Recomendation recomendation){
+    public void addWatchlistMovie(Recommendation recommendation){
         Watchlist addedMovie = new Watchlist();
-        addedMovie.setMovieId(recomendation.getMovieId());
-        addedMovie.setMovieTitle(recomendation.getMovieTitle());
-        addedMovie.setOverview(recomendation.getOverview());
-        addedMovie.setPosterPath(recomendation.getPosterPath());
-        addedMovie.setReleaseDate(recomendation.getReleaseDate());
-        addedMovie.setRating(recomendation.getRating());
-        addedMovie.setVotes(recomendation.getVotes());
-        addedMovie.setPopularity(recomendation.getPopularity());
+        addedMovie.setMovieId(recommendation.getMovieId());
+        addedMovie.setMovieTitle(recommendation.getMovieTitle());
+        addedMovie.setOverview(recommendation.getOverview());
+        addedMovie.setPosterPath(recommendation.getPosterPath());
+        addedMovie.setReleaseDate(recommendation.getReleaseDate());
+        addedMovie.setRating(recommendation.getRating());
+        addedMovie.setVotes(recommendation.getVotes());
+        addedMovie.setPopularity(recommendation.getPopularity());
 
 
         db.watchlistDao().addMovie(addedMovie);
@@ -110,23 +107,23 @@ public class DatabaseViewModel extends AndroidViewModel {
         db.watchedDao().addMovie(addedMovie);
     }
 
-    public void addWatchedMovie(Recomendation recomendation){
+    public void addWatchedMovie(Recommendation recommendation){
         Watched addedMovie = new Watched();
-        addedMovie.setMovieId(recomendation.getMovieId());
-        addedMovie.setMovieTitle(recomendation.getMovieTitle());
-        addedMovie.setOverview(recomendation.getOverview());
-        addedMovie.setPosterPath(recomendation.getPosterPath());
-        addedMovie.setReleaseDate(recomendation.getReleaseDate());
-        addedMovie.setRating(recomendation.getRating());
-        addedMovie.setVotes(recomendation.getVotes());
-        addedMovie.setPopularity(recomendation.getPopularity());
+        addedMovie.setMovieId(recommendation.getMovieId());
+        addedMovie.setMovieTitle(recommendation.getMovieTitle());
+        addedMovie.setOverview(recommendation.getOverview());
+        addedMovie.setPosterPath(recommendation.getPosterPath());
+        addedMovie.setReleaseDate(recommendation.getReleaseDate());
+        addedMovie.setRating(recommendation.getRating());
+        addedMovie.setVotes(recommendation.getVotes());
+        addedMovie.setPopularity(recommendation.getPopularity());
 
 
         db.watchedDao().addMovie(addedMovie);
     }
 
-    public void addRecomendationMovie(MovieDb movieDb){
-        Recomendation addedMovie = new Recomendation();
+    public void addRecommendationMovie(MovieDb movieDb){
+        Recommendation addedMovie = new Recommendation();
         addedMovie.setMovieId(movieDb.getId());
         addedMovie.setMovieTitle(movieDb.getOriginalTitle());
         addedMovie.setOverview(movieDb.getOverview());
@@ -135,12 +132,12 @@ public class DatabaseViewModel extends AndroidViewModel {
         addedMovie.setRating(movieDb.getVoteAverage());
         addedMovie.setVotes(movieDb.getVoteCount());
         addedMovie.setPopularity(movieDb.getPopularity());
-        db.recomendationDao().addMovie(addedMovie);
+        db.recommendationDao().addMovie(addedMovie);
     }
 
-    public void addRemovedMovie(Recomendation recomendation){
+    public void addRemovedMovie(Recommendation recommendation){
         Removed addedMovie = new Removed();
-        addedMovie.setMovieId(recomendation.getMovieId());
+        addedMovie.setMovieId(recommendation.getMovieId());
 
         db.removedDao().addMovie(addedMovie);
     }
@@ -153,7 +150,7 @@ public class DatabaseViewModel extends AndroidViewModel {
         db.watchedDao().deleteMovie(watched);
     }
 
-    public void deleteRecomendationMovie(Recomendation recomendation){
-        db.recomendationDao().deleteMovie(recomendation);
+    public void deleteRecommendationMovie(Recommendation recommendation){
+        db.recommendationDao().deleteMovie(recommendation);
     }
 }

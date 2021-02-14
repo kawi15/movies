@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "recomendation")
-public class Recomendation implements Serializable {
+@Entity(tableName = "recommendation")
+public class Recommendation implements Serializable {
 
     @PrimaryKey
     @ColumnInfo(name = "id")

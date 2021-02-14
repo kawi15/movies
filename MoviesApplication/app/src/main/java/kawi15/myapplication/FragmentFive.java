@@ -15,8 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import kawi15.myapplication.database.DatabaseViewModel;
-import kawi15.myapplication.database.Recomendation;
-import kawi15.myapplication.database.Watched;
+import kawi15.myapplication.database.Recommendation;
 
 public class FragmentFive extends Fragment {
 
@@ -24,7 +23,7 @@ public class FragmentFive extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private DatabaseViewModel databaseViewModel;
     private static RecyclerView recyclerView;
-    private List<Recomendation> data;
+    private List<Recommendation> data;
 
     public static FragmentFive newInstance() {
         FragmentFive fragment = new FragmentFive();
@@ -42,10 +41,10 @@ public class FragmentFive extends Fragment {
     public void onResume() {
         super.onResume();
 
-        data = databaseViewModel.getRecomendationList();
-        adapter = new RecomendationAdapter(data);
-        ((RecomendationAdapter) adapter).setOnRecomendationMovieClicked(movie -> {
-            Intent intent = new Intent(getActivity(), MovieDetailsRecomendation.class);
+        data = databaseViewModel.getRecommendationList();
+        adapter = new RecommendationAdapter(data);
+        ((RecommendationAdapter) adapter).setOnRecommendationMovieClicked(movie -> {
+            Intent intent = new Intent(getActivity(), MovieDetailsRecommendation.class);
             intent.putExtra("class", "recomendation");
             intent.putExtra("object", movie);
             startActivity(intent);

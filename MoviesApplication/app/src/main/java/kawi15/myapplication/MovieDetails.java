@@ -1,7 +1,5 @@
 package kawi15.myapplication;
 
-import android.app.Application;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -9,9 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,14 +16,10 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import info.movito.themoviedbapi.TmdbApi;
-import info.movito.themoviedbapi.TmdbMovies;
-import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
-import info.movito.themoviedbapi.model.ProductionCompany;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
-import info.movito.themoviedbapi.model.people.PersonCast;
 import kawi15.myapplication.database.DatabaseViewModel;
-import kawi15.myapplication.database.Recomendation;
+import kawi15.myapplication.database.Recommendation;
 import kawi15.myapplication.database.Removed;
 import kawi15.myapplication.database.Watched;
 import kawi15.myapplication.database.Watchlist;
@@ -38,7 +30,7 @@ public class MovieDetails extends AppCompatActivity {
     private Watchlist watchlist;
     private Watched watched;
     private MovieDb movieDb;
-    private Recomendation recomendation;
+    private Recommendation recommendation;
     private String bool;
     private List<Removed> removed;
     private int movieId;
@@ -68,8 +60,8 @@ public class MovieDetails extends AppCompatActivity {
         protected void onPostExecute(List<MovieDb> recomendations) {
             for(MovieDb item : recomendations){
                 int toCheck = item.getId();
-                if(databaseViewModel.getRemoveFromRecomendations(toCheck) == null){
-                    databaseViewModel.addRecomendationMovie(item);
+                if(databaseViewModel.getRemoveFromRecommendations(toCheck) == null){
+                    databaseViewModel.addRecommendationMovie(item);
                 }
             }
         }

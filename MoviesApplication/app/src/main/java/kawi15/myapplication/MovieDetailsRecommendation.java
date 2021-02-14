@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,15 +19,12 @@ import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 import kawi15.myapplication.database.DatabaseViewModel;
-import kawi15.myapplication.database.Recomendation;
-import kawi15.myapplication.database.Removed;
-import kawi15.myapplication.database.Watched;
-import kawi15.myapplication.database.Watchlist;
+import kawi15.myapplication.database.Recommendation;
 
-public class MovieDetailsRecomendation extends AppCompatActivity {
+public class MovieDetailsRecommendation extends AppCompatActivity {
 
     private DatabaseViewModel databaseViewModel;
-    private Recomendation recomendation;
+    private Recommendation recommendation;
     private int movieId;
 
     TextView title;
@@ -42,11 +37,11 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
     String ratingText;
     Button addToWatchlist;
     Button addToWatched;
-    Button removeFromRecomendations;
+    Button removeFromRecommendations;
 
 
 
-    public class RecomendationTask extends AsyncTask<Void, Void, List<MovieDb>> {
+    public class RecommendationTask extends AsyncTask<Void, Void, List<MovieDb>> {
 
         @Override
         protected List<MovieDb> doInBackground(Void... voids) {
@@ -57,7 +52,7 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(List<MovieDb> recomendations) {
+        protected void onPostExecute(List<MovieDb> recommendations) {
             /*removed = databaseViewModel.getRemovedFromRecomendations();
             for(MovieDb item : recomendations){
                 for(Removed movieRemoved : removed){
@@ -67,10 +62,10 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
                 }
             }*/
 
-            for(MovieDb item : recomendations){
+            for(MovieDb item : recommendations){
                 int toCheck = item.getId();
-                if(databaseViewModel.getRemoveFromRecomendations(toCheck) == null){
-                    databaseViewModel.addRecomendationMovie(item);
+                if(databaseViewModel.getRemoveFromRecommendations(toCheck) == null){
+                    databaseViewModel.addRecommendationMovie(item);
                 }
             }
         }
@@ -79,7 +74,7 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.movie_details_recomendation);
+        setContentView(R.layout.movie_details_recommendation);
         databaseViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
         releaseDate = findViewById(R.id.t1);
         title = findViewById(R.id.title);
@@ -92,62 +87,62 @@ public class MovieDetailsRecomendation extends AppCompatActivity {
         imageView = findViewById(R.id.image);
         addToWatchlist = findViewById(R.id.add_watchlist);
         addToWatched = findViewById(R.id.add_watched);
-        removeFromRecomendations = findViewById(R.id.remove_recomendation);
+        removeFromRecommendations = findViewById(R.id.remove_recommendation);
 
         Bundle bundle = getIntent().getExtras();
 
-        recomendation = (Recomendation) bundle.getSerializable("object");
-        Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + recomendation.getPosterPath()).into(imageView);
-        title.setText(recomendation.getMovieTitle());
-        overview.setText(recomendation.getOverview());
-        releaseDate.setText(recomendation.getReleaseDate());
-        popularity.setText(String.valueOf(recomendation.getPopularity()));
+        recommendation = (Recommendation) bundle.getSerializable("object");
+        Glide.with(imageView).load("https://image.tmdb.org/t/p/w500" + recommendation.getPosterPath()).into(imageView);
+        title.setText(recommendation.getMovieTitle());
+        overview.setText(recommendation.getOverview());
+        releaseDate.setText(recommendation.getReleaseDate());
+        popularity.setText(String.valueOf(recommendation.getPopularity()));
 
-        if(recomendation.getRating() == 0.0){
+        if(recommendation.getRating() == 0.0){
             ratingText = "not rated";
         }
-        else ratingText = String.valueOf(recomendation.getRating()) + " / 10";
+        else ratingText = String.valueOf(recommendation.getRating()) + " / 10";
 
         rating.setText(ratingText);
-        votes.setText(String.valueOf(recomendation.getVotes()));
+        votes.setText(String.valueOf(recommendation.getVotes()));
 
         addToWatched.setText("add to watched");
         addToWatchlist.setText("add to watchlist");
-        removeFromRecomendations.setText("remove from recomendations");
+        removeFromRecommendations.setText("remove from recomendations");
     }
 
     public void addToWatchlist(View view) {
-        movieId = recomendation.getMovieId();
-        databaseViewModel.addWatchlistMovie(recomendation);
-        databaseViewModel.addRemovedMovie(recomendation);
-        databaseViewModel.deleteRecomendationMovie(recomendation);
+        movieId = recommendation.getMovieId();
+        databaseViewModel.addWatchlistMovie(recommendation);
+        databaseViewModel.addRemovedMovie(recommendation);
+        databaseViewModel.deleteRecommendationMovie(recommendation);
 
         addToWatchlist.setText("Added!");
         addToWatchlist.setClickable(false);
 
-        RecomendationTask rt = new RecomendationTask();
+        RecommendationTask rt = new RecommendationTask();
         rt.execute();
     }
 
     public void addToWatched(View view) {
-        movieId = recomendation.getMovieId();
-        databaseViewModel.addWatchedMovie(recomendation);
-        databaseViewModel.addRemovedMovie(recomendation);
-        databaseViewModel.deleteRecomendationMovie(recomendation);
+        movieId = recommendation.getMovieId();
+        databaseViewModel.addWatchedMovie(recommendation);
+        databaseViewModel.addRemovedMovie(recommendation);
+        databaseViewModel.deleteRecommendationMovie(recommendation);
 
 
         addToWatched.setText("Added!");
         addToWatched.setClickable(false);
 
-        RecomendationTask rt = new RecomendationTask();
+        RecommendationTask rt = new RecommendationTask();
         rt.execute();
     }
 
-    public void removeFromRecomendations(View view) {
-        databaseViewModel.addRemovedMovie(recomendation);
-        databaseViewModel.deleteRecomendationMovie(recomendation);
+    public void removeFromRecommendations(View view) {
+        databaseViewModel.addRemovedMovie(recommendation);
+        databaseViewModel.deleteRecommendationMovie(recommendation);
 
-        removeFromRecomendations.setText("Removed!");
-        removeFromRecomendations.setClickable(false);
+        removeFromRecommendations.setText("Removed!");
+        removeFromRecommendations.setClickable(false);
     }
 }

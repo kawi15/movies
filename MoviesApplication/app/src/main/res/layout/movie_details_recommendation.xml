@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="release_date"
+                    android:text="release date"
                     android:layout_marginTop="10dp"
 
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -223,12 +223,12 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/remove_recomendation"
+                    android:id="@+id/remove_recommendation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="9sp"
-                    android:onClick="removeFromRecomendations"/>
+                    android:onClick="removeFromRecommendations"/>
 
             </LinearLayout>
 

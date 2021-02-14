@@ -9,6 +9,6 @@
     <string name="search">search</string>
     <string name="watchlist">watchlist</string>
     <string name="watched">watched</string>
-    <string name="recomendation">recommendation</string>
     <string name="recommendation">recommendation</string>
+    <string name="api_key">f753872c7aa5c000e0f46a4ea6fc49b2</string>
 </resources>

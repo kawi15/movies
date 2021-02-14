@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,10 +19,7 @@ import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 import kawi15.myapplication.database.DatabaseViewModel;
-import kawi15.myapplication.database.Recomendation;
 import kawi15.myapplication.database.Removed;
-import kawi15.myapplication.database.Watched;
-import kawi15.myapplication.database.Watchlist;
 
 public class MovieDetailsPremieres extends AppCompatActivity {
 
@@ -72,8 +67,8 @@ public class MovieDetailsPremieres extends AppCompatActivity {
 
             for(MovieDb item : recomendations){
                 int toCheck = item.getId();
-                if(databaseViewModel.getRemoveFromRecomendations(toCheck) == null){
-                    databaseViewModel.addRecomendationMovie(item);
+                if(databaseViewModel.getRemoveFromRecommendations(toCheck) == null){
+                    databaseViewModel.addRecommendationMovie(item);
                 }
             }
         }
